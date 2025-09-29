@@ -1,5 +1,25 @@
+import random, os, time, sys, subprocess, importlib
+def install_and_import(package, module_name=None):
+    try:
+        if module_name is None:
+            module_name = package
+        importlib.import_module(module_name)
+    except ImportError:
+        print(f"⚠️ {package} not found. Installing...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        print(f"✅ {package} installed successfully.")
+
+#required modules
+requirements = [
+    ("requests", "requests"),
+    ("beautifulsoup4", "bs4")
+]
+
+for pkg, mod in requirements:
+    install_and_import(pkg, mod)
+
 from scrapper import get_top_movies_by_genres
-import random, os, time
+
 
 # genre list
 GENRES = [
